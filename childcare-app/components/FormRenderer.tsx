@@ -19,6 +19,7 @@ import { FieldSpec } from '../types/field'
 
 export default function FormRenderer() {
   const steps = formSpec.form.steps
+  const stepperPosition: 'left' | 'right' = (formSpec.form.layout?.stepperPosition as any) || 'right'
   const [stepIndex, setStepIndex] = useState(0)
   const stepFields = steps[stepIndex].sections?.flatMap((sec: any) => sec.fields || []) || []
   const schema = buildConditionalSchema(stepFields)
@@ -118,7 +119,7 @@ export default function FormRenderer() {
 
 
   return (
-    <div className="flex">
+    <div className={`flex ${stepperPosition === 'left' ? 'flex-row-reverse' : ''}`}>
       <div className="flex-1 p-4">
         <h2 className="text-lg font-bold mb-4">{currentStep.title}</h2>
         <FormProvider {...methods}>
@@ -148,7 +149,15 @@ export default function FormRenderer() {
           </form>
         </FormProvider>
       </div>
-      <Stepper steps={steps.map(s => ({ id: s.id, title: s.title }))} current={stepIndex} onStepClick={i => { saveDraft(); setStepIndex(i) }} />
+      <Stepper
+        steps={steps.map(s => ({ id: s.id, title: s.title }))}
+        current={stepIndex}
+        onStepClick={i => {
+          saveDraft()
+          setStepIndex(i)
+        }}
+        position={stepperPosition}
+      />
     </div>
   )
 }
