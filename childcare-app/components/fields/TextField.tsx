@@ -1,4 +1,5 @@
 import { useFormContext } from 'react-hook-form'
+import { getError } from '../../utils/getError'
 import Tooltip from './Tooltip'
 import { sanitizePattern } from '../../utils/regex'
 interface Props {
@@ -21,6 +22,7 @@ export default function TextField({ id, label, type = 'text', required, placehol
     }
   }
   const validation = { required, pattern: regex, onChange: () => clearErrors(id), onBlur: () => clearErrors(id) }
+  const error = getError(errors, id)
 
   return (
     <div className="mb-4">
@@ -32,7 +34,7 @@ export default function TextField({ id, label, type = 'text', required, placehol
           <input
             id={id}
             type={type}
-            title={tooltip}
+            title={tooltip || placeholder}
             {...register(id, validation)}
             placeholder={placeholder}
             className="w-full"
@@ -42,14 +44,14 @@ export default function TextField({ id, label, type = 'text', required, placehol
         <input
           id={id}
           type={type}
-          title={tooltip}
+          title={tooltip || placeholder}
           {...register(id, validation)}
           placeholder={placeholder}
           className="w-full"
         />
       )}
-      {errors[id] && (
-        <p className="form-error-alert">{errors[id].message as string}</p>
+      {error && (
+        <p className="form-error-alert">{(error as any).message as string}</p>
       )}
     </div>
   )

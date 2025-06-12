@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 interface Props {
   title: string
@@ -23,7 +24,7 @@ export default function InfoBlock({ title, content, collapsible, defaultCollapse
         )}
       </div>
       {(!collapsible || !collapsed) && (
-        <ReactMarkdown>{parsedContent}</ReactMarkdown>
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>{parsedContent}</ReactMarkdown>
       )}
     </div>
   )

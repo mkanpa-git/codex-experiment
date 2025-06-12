@@ -1,4 +1,5 @@
 import { useFormContext } from 'react-hook-form'
+import { getError } from '../../utils/getError'
 interface Props {
   id: string;
   label: string;
@@ -7,6 +8,7 @@ interface Props {
 }
 export default function RadioGroup({ id, label, options, required }: Props) {
   const { register, formState: { errors }, clearErrors } = useFormContext()
+  const error = getError(errors, id)
   return (
     <fieldset className="mb-4">
       <legend className="font-medium">
@@ -18,8 +20,8 @@ export default function RadioGroup({ id, label, options, required }: Props) {
           {opt}
         </label>
       ))}
-      {errors[id] && (
-        <p className="form-error-alert">{errors[id].message as string}</p>
+      {error && (
+        <p className="form-error-alert">{(error as any).message as string}</p>
       )}
     </fieldset>
   )
