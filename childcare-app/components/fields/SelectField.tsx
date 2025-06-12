@@ -9,7 +9,7 @@ interface Props {
   tooltip?: string
 }
 export default function SelectField({ id, label, options, required, multiple, tooltip }: Props) {
-  const { register, formState: { errors }, setValue } = useFormContext()
+  const { register, formState: { errors }, setValue, clearErrors } = useFormContext()
 
   return (
     <div className="mb-4">
@@ -25,11 +25,13 @@ export default function SelectField({ id, label, options, required, multiple, to
             {...register(id, {
               required,
               onChange: e => {
+                clearErrors(id)
                 if (multiple) {
                   const vals = Array.from(e.target.selectedOptions).map(o => o.value)
                   setValue(id, vals)
                 }
-              }
+              },
+              onBlur: () => clearErrors(id)
             })}
             className="w-full"
           >
@@ -46,11 +48,12 @@ export default function SelectField({ id, label, options, required, multiple, to
           multiple={multiple}
           title={tooltip}
           {...register(id, { required, onChange: e => {
+            clearErrors(id)
             if (multiple) {
               const vals = Array.from(e.target.selectedOptions).map(o => o.value)
               setValue(id, vals)
             }
-          } })}
+          }, onBlur: () => clearErrors(id) })}
           className="w-full"
         >
           {!multiple && <option value="">Select...</option>}
@@ -61,7 +64,7 @@ export default function SelectField({ id, label, options, required, multiple, to
         </select>
       )}
       {errors[id] && (
-        <p className="form-error-alert">This field is required.</p>
+        <p className="form-error-alert">{errors[id].message as string}</p>
       )}
     </div>
   )

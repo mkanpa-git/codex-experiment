@@ -11,7 +11,7 @@ interface Props {
   pattern?: string
 }
 export default function TextField({ id, label, type = 'text', required, placeholder, tooltip, pattern }: Props) {
-  const { register, formState: { errors } } = useFormContext()
+  const { register, formState: { errors }, clearErrors } = useFormContext()
   let regex: RegExp | undefined
   if (pattern) {
     try {
@@ -20,7 +20,7 @@ export default function TextField({ id, label, type = 'text', required, placehol
       console.warn('Invalid regex pattern:', pattern)
     }
   }
-  const validation = { required, pattern: regex }
+  const validation = { required, pattern: regex, onChange: () => clearErrors(id), onBlur: () => clearErrors(id) }
 
   return (
     <div className="mb-4">
@@ -49,7 +49,7 @@ export default function TextField({ id, label, type = 'text', required, placehol
         />
       )}
       {errors[id] && (
-        <p className="form-error-alert">This field is required.</p>
+        <p className="form-error-alert">{errors[id].message as string}</p>
       )}
     </div>
   )

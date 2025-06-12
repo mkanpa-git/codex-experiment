@@ -10,6 +10,7 @@ interface Props {
 
 export default function InfoBlock({ title, content, collapsible, defaultCollapsed }: Props) {
   const [collapsed, setCollapsed] = useState<boolean>(defaultCollapsed ?? false)
+  const parsedContent = content.replace(/\\n/g, '\n')
 
   return (
     <div className="mb-6 p-4 bg-blue-50 border-l-4 border-blue-400">
@@ -22,7 +23,7 @@ export default function InfoBlock({ title, content, collapsible, defaultCollapse
         )}
       </div>
       {(!collapsible || !collapsed) && (
-        <ReactMarkdown>{content}</ReactMarkdown>
+        <ReactMarkdown>{parsedContent}</ReactMarkdown>
       )}
     </div>
   )

@@ -23,7 +23,7 @@ export default function FormRenderer() {
   const [stepIndex, setStepIndex] = useState(0)
   const stepFields = steps[stepIndex].sections?.flatMap((sec: any) => sec.fields || []) || []
   const schema = buildConditionalSchema(stepFields)
-  const methods = useForm({ mode: 'onBlur', resolver: async (values) => {
+  const methods = useForm({ mode: 'onBlur', shouldUnregister: true, resolver: async (values) => {
     try {
       const data = schema.parse(values)
       return { values: data, errors: {} }
@@ -52,7 +52,8 @@ export default function FormRenderer() {
   }
 
   const validateAndSave = async () => {
-    const valid = await methods.trigger()
+    const fieldIds = stepFields.map((f: FieldSpec) => f.id)
+    const valid = await methods.trigger(fieldIds)
     if (valid) {
       saveDraft()
     }
