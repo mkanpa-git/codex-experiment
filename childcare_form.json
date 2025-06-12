@@ -1643,6 +1643,7 @@
             {
               "id": "income_proof",
               "label": "Upload Income Proof",
+              "description": "To add a document to your application, you can upload an image or scanned file from your phone or device. Accepted formats include .pdf and .jpeg up to 25 MB. Learn how to upload your files with this Tutorial Video.",
               "type": "file",
               "requiredCondition": {
                 "field": "assistance_reason_choice",
@@ -1650,7 +1651,7 @@
                 "value": "Employment"
               },
               "constraints": {
-                "maxFileSizeMB": 5,
+                "maxFileSizeMB": 25,
                 "allowedTypes": [
                   "application/pdf",
                   "image/jpeg"
