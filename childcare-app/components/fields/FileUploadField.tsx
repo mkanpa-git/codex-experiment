@@ -17,7 +17,7 @@ export default function FileUploadField({ id, label, required, multiple, accept,
   return (
     <div className="mb-4">
       <label htmlFor={id} className="block font-medium">
-        {label} {required && <span className="text-red-600">*</span>}
+        {label} {required && <span className="required-asterisk">*</span>}
       </label>
       <input
         id={id}
@@ -67,7 +67,7 @@ export default function FileUploadField({ id, label, required, multiple, accept,
         className="block"
       />
       {errors[id] && (
-        <p className="text-red-600 text-sm">{errors[id].message as string}</p>
+        <p className="form-error-alert">{errors[id].message as string}</p>
       )}
     </div>
   )

@@ -125,7 +125,10 @@ export default function FormRenderer() {
         <FormProvider {...methods}>
           <form onSubmit={onSubmit} className="space-y-4">
             {currentStep.sections?.map(sec => (
-              <div key={sec.id}>
+              <section key={sec.id} className="form-section p-4">
+                {sec.title && (
+                  <header className="form-section-header">{sec.title}</header>
+                )}
                 {sec.type === 'info' ? (
                   <InfoBlock
                     title={sec.title || ''}
@@ -136,14 +139,14 @@ export default function FormRenderer() {
                 ) : (
                   sec.fields?.map(renderField)
                 )}
-              </div>
+              </section>
             ))}
             <div className="flex justify-between">
-              <button type="button" disabled={stepIndex === 0} onClick={goPrev} className="px-4 py-2 bg-gray-300 rounded">Back</button>
+              <button type="button" disabled={stepIndex === 0} onClick={goPrev} className="button-secondary">Back</button>
               {stepIndex < steps.length - 1 ? (
-                <button type="button" onClick={goNext} className="px-4 py-2 bg-blue-600 text-white rounded">Next</button>
+                <button type="button" onClick={goNext} className="button-primary">Next</button>
               ) : (
-                <button type="submit" className="px-4 py-2 bg-green-600 text-white rounded">Submit</button>
+                <button type="submit" className="button-primary">Submit</button>
               )}
             </div>
           </form>
