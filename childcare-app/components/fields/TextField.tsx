@@ -1,6 +1,6 @@
 import { useFormContext } from 'react-hook-form'
 import Tooltip from './Tooltip'
-import { sanitizePattern } from '../utils/regex'
+import { sanitizePattern } from '../../utils/regex'
 interface Props {
   id: string
   label: string
