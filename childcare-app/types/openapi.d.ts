@@ -6,5 +6,12 @@ export interface ApplicationSubmission {
     MaritalStatus: 'Single' | 'Married' | 'Divorced' | 'Widowed' | 'Separated'
   }
   ChildrenNeedingCare: any[]
-  DocumentList: any[]
+  DocumentList: DocumentListEntry[]
+}
+
+export interface DocumentListEntry {
+  proofCategory: string
+  name: string
+  fileType: string
+  fileSize: number
 }
