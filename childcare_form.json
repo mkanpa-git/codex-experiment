@@ -77,32 +77,32 @@
           "title": "Personal Information",
           "fields": [
             {
-              "id": "first_name",
+              "id": "applicant_first_name",
               "label": "First Name",
               "type": "text",
               "required": true
             },
             {
-              "id": "last_name",
+              "id": "applicant_last_name",
               "label": "Last Name",
               "type": "text",
               "required": true
             },
             {
-              "id": "mi",
+              "id": "applicant_mi",
               "label": "Middle Initial",
               "type": "text",
               "required": false
             },
             {
-              "id": "date_of_birth",
+              "id": "applicant_date_of_birth",
               "label": "Date of Birth",
               "type": "date",
               "required": true,
               "tooltip" : "To edit Date of Birth click on NYC MyCity in the top-left corner then click on Account Settings."
             },
             {
-              "id": "sex",
+              "id": "applicant_sex",
               "label": "Sex",
               "type": "radio",
               "required": true,
@@ -281,7 +281,7 @@
           "title": "Demographics",
           "fields": [
             {
-              "id": "ethnicity",
+              "id": "applicant_ethnicity",
               "label": "Ethnicity",
               "type": "select",
               "required": false,
@@ -295,7 +295,7 @@
               }
             },
             {
-              "id": "race",
+              "id": "applicant_race",
               "label": "Race",
               "type": "checkbox",
               "required": false,
@@ -329,7 +329,7 @@
               }
             },
             {
-              "id": "ssn",
+              "id": "applicant_ssn",
               "label": "Social Security Number",
               "type": "text",
               "tooltip" : "To edit social security number click on NYC MyCity in the top-left corner then click on Account Settings.",
@@ -413,26 +413,26 @@
               },
               "fields": [
                 {
-                  "id": "first_name",
+                  "id": "child_first_name",
                   "label": "First Name",
                   "type": "text",
                   "required": true,
                   "tooltip": "Provide the first name, last name, and middle initial of each child you are applying for child care assistance for."
                 },
                 {
-                  "id": "last_name",
+                  "id": "child_last_name",
                   "label": "Last Name",
                   "type": "text",
                   "required": true
                 },
                 {
-                  "id": "mi",
+                  "id": "child_mi",
                   "label": "Middle Initial",
                   "type": "text",
                   "required": false
                 },
                 {
-                  "id": "relationship_to_applicant",
+                  "id": "child_relationship_to_applicant",
                   "label": "Relationship to Applicant",
                   "type": "select",
                   "required": true,
@@ -446,14 +446,14 @@
                   }
                 },
                 {
-                  "id": "date_of_birth",
+                  "id": "child_date_of_birth",
                   "label": "Date of Birth",
                   "type": "date",
                   "required": true,
                   "tooltip": "Provide the date of birth."
                 },
                 {
-                  "id": "sex",
+                  "id": "child_sex",
                   "label": "Sex",
                   "type": "radio",
                   "required": true,
@@ -466,7 +466,7 @@
                   }
                 },
                 {
-                  "id": "ethnicity",
+                  "id": "child_ethnicity",
                   "label": "Ethnicity Hispanic or Latino",
                   "type": "select",
                   "required": false,
@@ -480,7 +480,7 @@
                   }
                 },
                 {
-                  "id": "race",
+                  "id": "child_race",
                   "label": "Race",
                   "type": "checkbox",
                   "required": false,
@@ -514,7 +514,7 @@
                   }
                 },
                 {
-                  "id": "ssn",
+                  "id": "child_ssn",
                   "label": "Social Security Number",
                   "type": "text",
                   "required": false,
@@ -597,26 +597,26 @@
               },
               "fields": [
                 {
-                  "id": "first_name",
+                  "id": "family_member_first_name",
                   "label": "First Name",
                   "type": "text",
                   "required": true,
                   "tooltip" : "Provide last and first name, and middle initial if applicable."
                 },
                 {
-                  "id": "last_name",
+                  "id": "family_member_last_name",
                   "label": "Last Name",
                   "type": "text",
                   "required": true
                 },
                 {
-                  "id": "mi",
+                  "id": "family_member_mi",
                   "label": "Middle Initial",
                   "type": "text",
                   "required": false
                 },
                 {
-                  "id": "relationship_to_applicant",
+                  "id": "family_member_relationship_to_applicant",
                   "label": "Relationship to Applicant",
                   "type": "select",
                   "required": true,
@@ -632,14 +632,14 @@
                   }
                 },
                 {
-                  "id": "date_of_birth",
+                  "id": "family_member_date_of_birth",
                   "label": "Date of Birth",
                   "type": "date",
                   "required": true,
                   "tooltip" : "Provide the family member's date of birth."
                 },
                 {
-                  "id": "sex",
+                  "id": "family_member_sex",
                   "label": "Sex",
                   "type": "radio",
                   "required": true,
@@ -652,7 +652,7 @@
                   }
                 },
                 {
-                  "id": "ethnicity",
+                  "id": "family_member_ethnicity",
                   "label": "Ethnicity Hispanic or Latino",
                   "type": "select",
                   "required": false,
@@ -666,7 +666,7 @@
                   }
                 },
                 {
-                  "id": "race",
+                  "id": "family_member_race",
                   "label": "Race",
                   "type": "checkbox",
                   "required": false,
@@ -685,7 +685,7 @@
                   }
                 },
                 {
-                  "id": "ssn",
+                  "id": "family_member_ssn",
                   "label": "Social Security Number",
                   "type": "text",
                   "required": false,
@@ -708,13 +708,13 @@
       "title": "Child / Family Needs",
       "sections": [
         {
-          "id": "assistance_reason",
+          "id": "assistance_reason_section",
           "title": "Reason for Child Care Assistance",
           "description": "Select one or two reasons you are requesting Child Care Assistance.",
           "tooltip": "Select one reason. In a two-parent household, parents/caretakers can have the same or different reasons for needing child care. Both parents/caretakers will be required to submit documentation in support of their own reason. If you are living in temporary housing, please select Homelessness even if you have another reason that applies to you.",
           "fields": [
             {
-              "id": "assistance_reason",
+              "id": "assistance_reason_choice",
               "label": "Reason(s) for Assistance",
               "type": "select",
               "required": true,
@@ -1525,12 +1525,12 @@
             "Please include income/benefits information for yourself and, if applicable, your spouse, your child’s second caretaker, and/or any other adult with whom you share a child, if they live in your home.\\n\\nIndicate if you receive money from the following sources by selecting “Yes” or “No.” If you select “Yes,” you will be asked for additional information.\\n\\nIf the second caretaker in the household also receives the same income source, add a separate line for their income."
         },
         {
-          "id": "income_sources",
+          "id": "income_sources_section",
           "title": "Income Sources",
           "description": "Provide details about all income sources applicable to the applicant or household.",
           "fields": [
             {
-              "id": "income_sources",
+              "id": "income_source_entries",
               "label": "List of Income Sources",
               "type": "group",
               "metadata": {
@@ -1624,12 +1624,12 @@
           ]
         },
         {
-          "id": "total_income",
+          "id": "total_income_section",
           "title": "Total Household Income",
           "description": "Sum of all monthly income across sources.",
           "fields": [
             {
-              "id": "total_income",
+              "id": "total_income_value",
               "label": "Total Monthly Income ($)",
               "type": "number",
               "required": true
@@ -1645,7 +1645,7 @@
               "label": "Upload Income Proof",
               "type": "file",
               "requiredCondition": {
-                "field": "assistance_reason",
+                "field": "assistance_reason_choice",
                 "operator": "includes",
                 "value": "Employment"
               },
@@ -1686,12 +1686,12 @@
             "If you are found eligible for child care assistance, you can choose center-based or home-based care from a licensed, registered, or legally exempt provider. If you choose a provider that is not licensed or registered, the provider must be enrolled as a legally exempt provider.\\n\\nIf you know which child care providers you would like your child to attend, provide the names and addresses of your choice of providers. You can leave this section blank if you do not know (it will not impact your eligibility and you will have an opportunity to select a provider if determined eligible)."
         },
         {
-          "id": "provider_choices",
+          "id": "provider_choices_section",
           "title": "Provider Choices",
           "description": "Specify details of the provider where you intend to enroll the child(ren).",
           "fields": [
             {
-              "id": "provider_choices",
+              "id": "provider_list",
               "label": "List of Providers",
               "type": "group",
               "metadata": {
