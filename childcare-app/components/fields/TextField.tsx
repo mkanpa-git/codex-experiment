@@ -11,6 +11,7 @@ interface Props {
 export default function TextField({ id, label, type = 'text', required, placeholder, tooltip, pattern }: Props) {
   const { register, formState: { errors } } = useFormContext()
   const validation = { required, pattern: pattern ? new RegExp(pattern) : undefined }
+
   return (
     <div className="mb-4">
       <label htmlFor={id} className="block font-medium">
@@ -21,6 +22,7 @@ export default function TextField({ id, label, type = 'text', required, placehol
         type={type}
         title={tooltip}
         {...register(id, validation)}
+
         placeholder={placeholder}
         className="border rounded p-2 w-full"
       />

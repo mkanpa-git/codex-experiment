@@ -9,6 +9,7 @@ interface Props {
 }
 export default function SelectField({ id, label, options, required, multiple, tooltip }: Props) {
   const { register, formState: { errors }, setValue } = useFormContext()
+
   return (
     <div className="mb-4">
       <label htmlFor={id} className="block font-medium">
@@ -27,6 +28,7 @@ export default function SelectField({ id, label, options, required, multiple, to
         className="border rounded p-2 w-full"
       >
         {!multiple && <option value="">Select...</option>}
+
         {options.map(opt => (
           <option key={opt} value={opt}>{opt}</option>
         ))}

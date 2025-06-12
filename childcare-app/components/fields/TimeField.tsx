@@ -6,6 +6,7 @@ interface Props {
   tooltip?: string
 }
 export default function TimeField({ id, label, required, tooltip }: Props) {
+
   const { register, formState: { errors } } = useFormContext()
   return (
     <div className="mb-4">
@@ -13,6 +14,7 @@ export default function TimeField({ id, label, required, tooltip }: Props) {
         {label} {required && <span className="text-red-600">*</span>}
       </label>
       <input id={id} type="time" title={tooltip} {...register(id, { required })} className="border rounded p-2 w-full" />
+
       {errors[id] && (
         <p className="text-red-600 text-sm">This field is required.</p>
       )}

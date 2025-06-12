@@ -8,6 +8,7 @@ interface Props {
   maxFileSizeMB?: number
 }
 export default function FileUploadField({ id, label, required, multiple, accept, maxFileSizeMB }: Props) {
+
   const { register, formState: { errors } } = useFormContext()
   return (
     <div className="mb-4">
@@ -31,6 +32,7 @@ export default function FileUploadField({ id, label, required, multiple, accept,
             return true
           }
         })}
+
         multiple={multiple}
         accept={accept}
         className="block"

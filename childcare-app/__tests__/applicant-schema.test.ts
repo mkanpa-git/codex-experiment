@@ -27,4 +27,5 @@ describe('applicantSchema', () => {
     })
     expect(result.success).toBe(false)
   })
+
 })

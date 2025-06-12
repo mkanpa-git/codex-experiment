@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+
 import { FormProvider, useForm, useFieldArray } from 'react-hook-form'
 import TextField from './fields/TextField'
 import SelectField from './fields/SelectField'
@@ -50,6 +51,7 @@ export default function FormRenderer() {
     }
   }, [])
 
+
   const currentStep = steps[stepIndex]
   const onSubmit = methods.handleSubmit((data) => {
     console.log('submit', data)
@@ -58,6 +60,7 @@ export default function FormRenderer() {
   const saveDraft = () => {
     const data = methods.getValues()
     localStorage.setItem('childcareDraft', JSON.stringify(data))
+
   }
 
   const goNext = () => {
@@ -86,6 +89,7 @@ export default function FormRenderer() {
         return <TextField key={f.id} id={f.id} type="number" label={f.label || ''} required={f.required} placeholder={f.placeholder} tooltip={f.tooltip} />
       case 'select':
         return <SelectField key={f.id} id={f.id} label={f.label || ''} options={Array.isArray(f.ui?.options) ? f.ui.options : []} required={f.required} multiple={f.metadata?.multiple} tooltip={f.tooltip} />
+
       case 'radio':
         return <RadioGroup key={f.id} id={f.id} label={f.label || ''} options={f.ui?.options || []} required={f.required} />
       case 'checkbox':
@@ -94,6 +98,7 @@ export default function FormRenderer() {
         return <DateField key={f.id} id={f.id} label={f.label || ''} required={f.required} tooltip={f.tooltip} />
       case 'time':
         return <TimeField key={f.id} id={f.id} label={f.label || ''} required={f.required} tooltip={f.tooltip} />
+
       case 'file':
         return (
           <FileUploadField
