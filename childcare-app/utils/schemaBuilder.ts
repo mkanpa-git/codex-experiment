@@ -1,7 +1,6 @@
 import { z, ZodTypeAny } from 'zod'
 import { Condition, evaluateCondition } from './conditions'
-
-type FieldSpec = any
+import { FieldSpec } from '../types/field'
 
 export function buildSchema(fields: FieldSpec[]): ZodTypeAny {
   const shape: Record<string, ZodTypeAny> = {}
