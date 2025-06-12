@@ -1,4 +1,5 @@
 import { useFormContext } from 'react-hook-form'
+import Tooltip from './Tooltip'
 interface Props {
   id: string
   label: string
@@ -17,15 +18,27 @@ export default function TextField({ id, label, type = 'text', required, placehol
       <label htmlFor={id} className="block font-medium">
         {label} {required && <span className="text-red-600">*</span>}
       </label>
-      <input
-        id={id}
-        type={type}
-        title={tooltip}
-        {...register(id, validation)}
-
-        placeholder={placeholder}
-        className="border rounded p-2 w-full"
-      />
+      {tooltip ? (
+        <Tooltip content={tooltip}>
+          <input
+            id={id}
+            type={type}
+            title={tooltip}
+            {...register(id, validation)}
+            placeholder={placeholder}
+            className="border rounded p-2 w-full"
+          />
+        </Tooltip>
+      ) : (
+        <input
+          id={id}
+          type={type}
+          title={tooltip}
+          {...register(id, validation)}
+          placeholder={placeholder}
+          className="border rounded p-2 w-full"
+        />
+      )}
       {errors[id] && (
         <p className="text-red-600 text-sm">This field is required.</p>
       )}
