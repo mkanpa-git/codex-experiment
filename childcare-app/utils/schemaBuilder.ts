@@ -1,70 +1,58 @@
-import { z, ZodTypeAny } from 'zod';
-import { Condition, evaluateCondition } from './conditions';
+import { z, ZodTypeAny } from 'zod'
+import { Condition, evaluateCondition } from './conditions'
 
-type FieldSpec = any;
+type FieldSpec = any
 
 export function buildSchema(fields: FieldSpec[]): ZodTypeAny {
-  const shape: Record<string, ZodTypeAny> = {};
-
+  const shape: Record<string, ZodTypeAny> = {}
   for (const field of fields) {
-    if (field.type === 'group') continue;
-
-    let schema: ZodTypeAny;
-
-    // Base type handling
+    if (field.type === 'group') continue
+    let schema: ZodTypeAny
     switch (field.type) {
       case 'checkbox':
-        schema = z.array(z.string());
-        break;
+        schema = z.array(z.string())
+        break
+      case 'select':
+        if (field.metadata?.multiple) {
+          schema = z.array(z.string())
+          if (field.constraints?.minSelections) {
+            schema = schema.min(field.constraints.minSelections)
+          }
+          if (field.constraints?.maxSelections) {
+            schema = schema.max(field.constraints.maxSelections)
+          }
+        } else {
+          schema = z.string()
+        }
+        break
       case 'file':
-        schema = z.any(); // could use z.instanceof(File) in browser
-        break;
+        schema = z.any()
+        break
       default:
-        schema = z.string();
+        schema = z.string()
     }
-
-    // Required field
     if (field.required) {
-      schema = schema.refine(v => v !== undefined && v !== '', {
-        message: 'Required',
-      });
+      schema = schema.refine(v => v !== undefined && v !== '', { message: 'Required' })
     }
-
-    // Regex constraint (safely parsed)
     if (field.constraints?.pattern) {
-      try {
-        const unescapedPattern = field.constraints.pattern.replace(/\\\\/g, '\\');
-        const regex = new RegExp(unescapedPattern);
-        schema = schema.regex(regex, 'Invalid format');
-      } catch (err) {
-        console.warn(`⚠️ Invalid regex pattern for field '${field.id}': ${field.constraints.pattern}`);
-      }
+      const regex = new RegExp(field.constraints.pattern)
+      schema = schema.regex(regex, 'Invalid format')
     }
-
-    shape[field.id] = schema;
+    shape[field.id] = schema
   }
-
-  return z.object(shape);
+  return z.object(shape)
 }
 
 export function buildConditionalSchema(fields: FieldSpec[]) {
-  const base = buildSchema(fields);
-
+  const base = buildSchema(fields)
   return base.superRefine((data, ctx) => {
     for (const field of fields) {
       if (field.requiredCondition) {
-        const cond = field.requiredCondition as Condition;
-        const value = data[field.id];
-        const isEmpty = value === undefined || value === '' || (Array.isArray(value) && value.length === 0);
-
-        if (evaluateCondition(cond, data) && isEmpty) {
-          ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: 'Required',
-            path: [field.id],
-          });
+        const cond = field.requiredCondition as Condition
+        if (evaluateCondition(cond, data) && (data[field.id] === undefined || data[field.id] === '')) {
+          ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Required', path: [field.id] })
         }
       }
     }
-  });
+  })
 }

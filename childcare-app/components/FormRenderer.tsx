@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+
 import { FormProvider, useForm, useFieldArray } from 'react-hook-form'
 import TextField from './fields/TextField'
 import SelectField from './fields/SelectField'
@@ -43,13 +44,23 @@ export default function FormRenderer() {
     }
   } })
 
+  useEffect(() => {
+    const raw = localStorage.getItem('childcareDraft')
+    if (raw) {
+      methods.reset(JSON.parse(raw))
+    }
+  }, [])
+
+
   const currentStep = steps[stepIndex]
   const onSubmit = methods.handleSubmit((data) => {
     console.log('submit', data)
   })
 
   const saveDraft = () => {
-    console.log('autosave', methods.getValues())
+    const data = methods.getValues()
+    localStorage.setItem('childcareDraft', JSON.stringify(data))
+
   }
 
   const goNext = () => {
@@ -70,22 +81,24 @@ export default function FormRenderer() {
     }
     switch (f.type) {
       case 'text':
-        return <TextField key={f.id} id={f.id} label={f.label || ''} required={f.required} placeholder={f.placeholder} />
+        return <TextField key={f.id} id={f.id} label={f.label || ''} required={f.required} placeholder={f.placeholder} tooltip={f.tooltip} pattern={f.constraints?.pattern} />
       case 'tel':
       case 'email':
-        return <TextField key={f.id} id={f.id} label={f.label || ''} required={f.required} placeholder={f.placeholder} />
+        return <TextField key={f.id} id={f.id} type={f.type} label={f.label || ''} required={f.required} placeholder={f.placeholder} tooltip={f.tooltip} pattern={f.constraints?.pattern} />
       case 'number':
-        return <TextField key={f.id} id={f.id} label={f.label || ''} required={f.required} placeholder={f.placeholder} />
+        return <TextField key={f.id} id={f.id} type="number" label={f.label || ''} required={f.required} placeholder={f.placeholder} tooltip={f.tooltip} />
       case 'select':
-        return <SelectField key={f.id} id={f.id} label={f.label || ''} options={Array.isArray(f.ui?.options) ? f.ui.options : []} required={f.required} />
+        return <SelectField key={f.id} id={f.id} label={f.label || ''} options={Array.isArray(f.ui?.options) ? f.ui.options : []} required={f.required} multiple={f.metadata?.multiple} tooltip={f.tooltip} />
+
       case 'radio':
         return <RadioGroup key={f.id} id={f.id} label={f.label || ''} options={f.ui?.options || []} required={f.required} />
       case 'checkbox':
         return <CheckboxGroup key={f.id} id={f.id} label={f.label || ''} options={f.ui?.options || []} required={f.required} />
       case 'date':
-        return <DateField key={f.id} id={f.id} label={f.label || ''} required={f.required} />
+        return <DateField key={f.id} id={f.id} label={f.label || ''} required={f.required} tooltip={f.tooltip} />
       case 'time':
-        return <TimeField key={f.id} id={f.id} label={f.label || ''} required={f.required} />
+        return <TimeField key={f.id} id={f.id} label={f.label || ''} required={f.required} tooltip={f.tooltip} />
+
       case 'file':
         return (
           <FileUploadField
@@ -95,6 +108,7 @@ export default function FormRenderer() {
             required={f.required}
             multiple={f.metadata?.multiple}
             accept={f.constraints?.allowedTypes?.join(',')}
+            maxFileSizeMB={f.constraints?.maxFileSizeMB}
           />
         )
       case 'info':
