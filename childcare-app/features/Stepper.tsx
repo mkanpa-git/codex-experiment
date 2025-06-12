@@ -5,9 +5,13 @@ interface Props {
   position?: 'left' | 'right'
 }
 export default function Stepper({ steps, current, onStepClick, position = 'right' }: Props) {
-  const marginClass = position === 'left' ? 'mr-8' : 'ml-8'
+  const marginClass = position === 'left' ? 'md:mr-8' : 'md:ml-8'
   return (
-    <nav className={`w-64 ${marginClass}`} role="navigation" aria-label="Form steps">
+    <nav
+      className={`w-full md:w-64 ${marginClass} mt-4 md:mt-0`}
+      role="navigation"
+      aria-label="Form steps"
+    >
       <ol
         className="space-y-2 p-4 rounded-2xl shadow-md"
         style={{ backgroundColor: 'var(--surface)' }}

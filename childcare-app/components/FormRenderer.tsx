@@ -132,8 +132,11 @@ export default function FormRenderer() {
   }
 
 
+  const containerClass =
+    `flex flex-col ${stepperPosition === 'left' ? 'md:flex-row-reverse' : 'md:flex-row'}`
+
   return (
-    <div className={`flex ${stepperPosition === 'left' ? 'flex-row-reverse' : ''}`}>
+    <div className={containerClass}>
       <div className="flex-1 p-4">
         <h2 className="text-lg font-bold mb-4">{currentStep.title}</h2>
         <FormProvider {...methods}>
