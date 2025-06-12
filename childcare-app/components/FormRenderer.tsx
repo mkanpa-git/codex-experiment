@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-import { FormProvider, useForm, useFieldArray } from 'react-hook-form'
+import { FormProvider, useForm } from 'react-hook-form'
 import TextField from './fields/TextField'
 import SelectField from './fields/SelectField'
 import RadioGroup from './fields/RadioGroup'
@@ -13,22 +13,9 @@ import Stepper from '../features/Stepper'
 import formSpec from '../childcare_form.json'
 import { evaluateCondition } from '../utils/conditions'
 import { buildConditionalSchema } from '../utils/schemaBuilder'
+import GroupField from './GroupField'
+import { FieldSpec } from '../types/field'
 
-type FieldSpec = {
-  id: string
-  label?: string
-  title?: string
-  type: string
-  required?: boolean
-  requiredCondition?: any
-  visibilityCondition?: any
-  ui?: { options?: any }
-  placeholder?: string
-  content?: string
-  metadata?: { multiple?: boolean; proofCategory?: string }
-  constraints?: { allowedTypes?: string[]; pattern?: string; maxFileSizeMB?: number }
-  fields?: FieldSpec[]
-}
 
 export default function FormRenderer() {
   const steps = formSpec.form.steps
@@ -114,31 +101,12 @@ export default function FormRenderer() {
       case 'info':
         return <InfoBlock key={f.id} title={f.title || ''} content={f.content || ''} />
       case 'group':
-        return <GroupField key={f.id} field={f} />
+        return <GroupField key={f.id} field={f} renderField={renderField} />
       default:
         return null
     }
   }
 
-  function GroupField({ field }: { field: FieldSpec }) {
-    const { control } = methods
-    const { fields, append, remove } = useFieldArray({ control, name: field.id })
-    return (
-      <div className="mb-6 border p-2">
-        <h3 className="font-semibold mb-2">{field.label}</h3>
-        {fields.map((item, index) => (
-          <div key={item.id} className="mb-4">
-            {field.fields?.map(child => {
-              const childId = `${field.id}.${index}.${child.id}`
-              return renderField({ ...child, id: childId })
-            })}
-            <button type="button" className="text-sm text-red-600" onClick={() => remove(index)}>Remove</button>
-          </div>
-        ))}
-        <button type="button" className="text-sm text-blue-600" onClick={() => append({})}>Add</button>
-      </div>
-    )
-  }
 
   return (
     <div className="flex">
