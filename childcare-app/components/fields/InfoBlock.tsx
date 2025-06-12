@@ -22,7 +22,7 @@ export default function InfoBlock({ title, content, collapsible, defaultCollapse
         )}
       </div>
       {(!collapsible || !collapsed) && (
-        <ReactMarkdown className="whitespace-pre-line">{content}</ReactMarkdown>
+        <ReactMarkdown>{content}</ReactMarkdown>
       )}
     </div>
   )
