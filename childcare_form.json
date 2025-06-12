@@ -384,13 +384,11 @@
                 "options": ["Yes", "No"]
               }
             },
-            { "id": "ca_number", "label": "Cash Assistance Number", "type": "text", "required": false,  
+            { "id": "ca_number", "label": "Cash Assistance Number", "type": "text", "required": false,
               "requiredCondition": {
-                "condition": {
-                  "field": "has_cash_assistance",
-                  "operator": "equals",
-                  "value": "Yes"
-                }
+                "field": "has_cash_assistance",
+                "operator": "equals",
+                "value": "Yes"
               }
             }
           ]
@@ -1572,11 +1570,9 @@
                     "value": "Other"
                   },
                   "requiredCondition": {
-                    "condition" : {
                     "field": "name_ref",
                     "operator": "equals",
                     "value": "Other"
-                    }
                   }
                 },
                 {
@@ -1649,11 +1645,9 @@
               "label": "Upload Income Proof",
               "type": "file",
               "requiredCondition": {
-                "condition": {
-                  "field": "assistance_reason",
-                  "operator": "includes",
-                  "value": "Employment"
-                }
+                "field": "assistance_reason",
+                "operator": "includes",
+                "value": "Employment"
               },
               "constraints": {
                 "maxFileSizeMB": 5,
