@@ -821,7 +821,7 @@
           "fields" :[
             {
               "id": "applicant_emp_income_indicator",
-              "label": "Does applicant earn any inomce/ wages from employment? ",
+              "label": "Does applicant earn any income/ wages from employment? ",
               "type": "radio",
               "required": false,
               "ui": {
@@ -830,7 +830,7 @@
             },
             {
               "id": "coparent_emp_income_indicator",
-              "label": "Does Coparent/2nd Guardian earn any inomce/ wages from employment? ",
+              "label": "Does Coparent/2nd Guardian earn any income/ wages from employment? ",
               "type": "radio",
               "required": false,
               "ui": {
