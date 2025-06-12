@@ -96,6 +96,7 @@ export default function FormRenderer() {
             multiple={f.metadata?.multiple}
             accept={f.constraints?.allowedTypes?.join(',')}
             maxFileSizeMB={f.constraints?.maxFileSizeMB}
+            imageResolution={f.constraints?.imageResolution}
           />
         )
       case 'info':

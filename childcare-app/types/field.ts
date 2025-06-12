@@ -10,6 +10,14 @@ export interface FieldSpec {
   placeholder?: string
   content?: string
   metadata?: { multiple?: boolean; proofCategory?: string }
-  constraints?: { allowedTypes?: string[]; pattern?: string; maxFileSizeMB?: number }
+  constraints?: {
+    allowedTypes?: string[]
+    pattern?: string
+    maxFileSizeMB?: number
+    imageResolution?: {
+      minWidth?: number
+      minHeight?: number
+    }
+  }
   fields?: FieldSpec[]
 }
