@@ -83,12 +83,43 @@ export default function FormRenderer() {
     }
     switch (f.type) {
       case 'text':
-        return <TextField key={f.id} id={f.id} label={f.label || ''} required={f.required} placeholder={f.placeholder} tooltip={f.tooltip} pattern={f.constraints?.pattern} />
+        return (
+          <TextField
+            key={f.id}
+            id={f.id}
+            label={f.label || ''}
+            required={f.required}
+            placeholder={f.placeholder || f.ui?.placeholder}
+            tooltip={f.tooltip}
+            pattern={f.constraints?.pattern}
+          />
+        )
       case 'tel':
       case 'email':
-        return <TextField key={f.id} id={f.id} type={f.type} label={f.label || ''} required={f.required} placeholder={f.placeholder} tooltip={f.tooltip} pattern={f.constraints?.pattern} />
+        return (
+          <TextField
+            key={f.id}
+            id={f.id}
+            type={f.type}
+            label={f.label || ''}
+            required={f.required}
+            placeholder={f.placeholder || f.ui?.placeholder}
+            tooltip={f.tooltip}
+            pattern={f.constraints?.pattern}
+          />
+        )
       case 'number':
-        return <TextField key={f.id} id={f.id} type="number" label={f.label || ''} required={f.required} placeholder={f.placeholder} tooltip={f.tooltip} />
+        return (
+          <TextField
+            key={f.id}
+            id={f.id}
+            type="number"
+            label={f.label || ''}
+            required={f.required}
+            placeholder={f.placeholder || f.ui?.placeholder}
+            tooltip={f.tooltip}
+          />
+        )
       case 'select':
         return <SelectField key={f.id} id={f.id} label={f.label || ''} options={Array.isArray(f.ui?.options) ? f.ui.options : []} required={f.required} multiple={f.metadata?.multiple} tooltip={f.tooltip} />
 
