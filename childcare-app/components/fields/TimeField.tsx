@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form'
 import Tooltip from './Tooltip'
+import { getError } from '../../utils/getError'
 interface Props {
   id: string
   label: string
@@ -9,6 +10,7 @@ interface Props {
 export default function TimeField({ id, label, required, tooltip }: Props) {
 
   const { register, formState: { errors }, clearErrors } = useFormContext()
+  const error = getError(errors, id)
   return (
     <div className="mb-4">
       <label htmlFor={id} className="block font-medium">
@@ -22,8 +24,8 @@ export default function TimeField({ id, label, required, tooltip }: Props) {
         <input id={id} type="time" title={tooltip} {...register(id, { required, onChange: () => clearErrors(id), onBlur: () => clearErrors(id) })} className="w-full" />
       )}
 
-      {errors[id] && (
-        <p className="form-error-alert">{errors[id].message as string}</p>
+      {error && (
+        <p className="form-error-alert">{(error as any).message as string}</p>
       )}
     </div>
   )

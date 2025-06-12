@@ -16,7 +16,8 @@
     "react-hook-form": "7.49.2",
     "zod": "3.22.4",
     "@hookform/resolvers": "^3.0.0",
-    "react-markdown": "latest"
+    "react-markdown": "latest",
+    "remark-gfm": "latest"
   },
   "devDependencies": {
     "@types/react": "18.2.12",

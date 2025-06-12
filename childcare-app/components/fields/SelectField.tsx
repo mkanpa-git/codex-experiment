@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form'
 import Tooltip from './Tooltip'
+import { getError } from '../../utils/getError'
 interface Props {
   id: string
   label: string
@@ -10,6 +11,7 @@ interface Props {
 }
 export default function SelectField({ id, label, options, required, multiple, tooltip }: Props) {
   const { register, formState: { errors }, setValue, clearErrors } = useFormContext()
+  const error = getError(errors, id)
 
   return (
     <div className="mb-4">
@@ -63,8 +65,8 @@ export default function SelectField({ id, label, options, required, multiple, to
           ))}
         </select>
       )}
-      {errors[id] && (
-        <p className="form-error-alert">{errors[id].message as string}</p>
+      {error && (
+        <p className="form-error-alert">{(error as any).message as string}</p>
       )}
     </div>
   )

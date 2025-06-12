@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form'
 import { useState } from 'react'
+import { getError } from '../../utils/getError'
 interface Props {
   id: string
   label: string
@@ -14,6 +15,7 @@ interface Props {
 }
 export default function FileUploadField({ id, label, required, multiple, accept, maxFileSizeMB, imageResolution }: Props) {
   const { register, setValue, formState: { errors }, clearErrors } = useFormContext()
+  const error = getError(errors, id)
   const [dragging, setDragging] = useState(false)
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
@@ -88,8 +90,8 @@ export default function FileUploadField({ id, label, required, multiple, accept,
           className="block mx-auto mt-2"
         />
       </div>
-      {errors[id] && (
-        <p className="form-error-alert">{errors[id].message as string}</p>
+      {error && (
+        <p className="form-error-alert">{(error as any).message as string}</p>
       )}
     </div>
   )
