@@ -25,7 +25,7 @@ export default function TextField({ id, label, type = 'text', required, placehol
   return (
     <div className="mb-4">
       <label htmlFor={id} className="block font-medium">
-        {label} {required && <span className="text-red-600">*</span>}
+        {label} {required && <span className="required-asterisk">*</span>}
       </label>
       {tooltip ? (
         <Tooltip content={tooltip}>
@@ -35,7 +35,7 @@ export default function TextField({ id, label, type = 'text', required, placehol
             title={tooltip}
             {...register(id, validation)}
             placeholder={placeholder}
-            className="border rounded p-2 w-full"
+            className="w-full"
           />
         </Tooltip>
       ) : (
@@ -45,11 +45,11 @@ export default function TextField({ id, label, type = 'text', required, placehol
           title={tooltip}
           {...register(id, validation)}
           placeholder={placeholder}
-          className="border rounded p-2 w-full"
+          className="w-full"
         />
       )}
       {errors[id] && (
-        <p className="text-red-600 text-sm">This field is required.</p>
+        <p className="form-error-alert">This field is required.</p>
       )}
     </div>
   )

@@ -14,7 +14,7 @@ export default function SelectField({ id, label, options, required, multiple, to
   return (
     <div className="mb-4">
       <label htmlFor={id} className="block font-medium">
-        {label} {required && <span className="text-red-600">*</span>}
+        {label} {required && <span className="required-asterisk">*</span>}
       </label>
       {tooltip ? (
         <Tooltip content={tooltip}>
@@ -31,7 +31,7 @@ export default function SelectField({ id, label, options, required, multiple, to
                 }
               }
             })}
-            className="border rounded p-2 w-full"
+            className="w-full"
           >
             {!multiple && <option value="">Select...</option>}
 
@@ -51,7 +51,7 @@ export default function SelectField({ id, label, options, required, multiple, to
               setValue(id, vals)
             }
           } })}
-          className="border rounded p-2 w-full"
+          className="w-full"
         >
           {!multiple && <option value="">Select...</option>}
 
@@ -61,7 +61,7 @@ export default function SelectField({ id, label, options, required, multiple, to
         </select>
       )}
       {errors[id] && (
-        <p className="text-red-600 text-sm">This field is required.</p>
+        <p className="form-error-alert">This field is required.</p>
       )}
     </div>
   )

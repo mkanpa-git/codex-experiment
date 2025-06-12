@@ -8,11 +8,19 @@ export default function Stepper({ steps, current, onStepClick, position = 'right
   const marginClass = position === 'left' ? 'mr-8' : 'ml-8'
   return (
     <nav className={`w-64 ${marginClass}`} role="navigation" aria-label="Form steps">
-      <ol className="space-y-2 bg-white p-4 rounded-2xl shadow-md" role="list">
+      <ol
+        className="space-y-2 p-4 rounded-2xl shadow-md"
+        style={{ backgroundColor: 'var(--surface)' }}
+        role="list"
+      >
         {steps.map((s, i) => (
           <li key={s.id} role="listitem">
             <button
-              className={`w-full text-left p-2 rounded-lg ${current === i ? 'bg-blue-600 text-white' : 'bg-gray-100'}`}
+              className="w-full text-left p-2 rounded-lg"
+              style={{
+                backgroundColor: current === i ? 'var(--primary-color)' : 'var(--secondary-color)',
+                color: current === i ? '#ffffff' : 'var(--font-color)',
+              }}
               onClick={() => onStepClick(i)}
               aria-label={s.title}
               aria-current={current === i ? 'step' : undefined}

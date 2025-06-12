@@ -12,18 +12,18 @@ export default function TimeField({ id, label, required, tooltip }: Props) {
   return (
     <div className="mb-4">
       <label htmlFor={id} className="block font-medium">
-        {label} {required && <span className="text-red-600">*</span>}
+        {label} {required && <span className="required-asterisk">*</span>}
       </label>
       {tooltip ? (
         <Tooltip content={tooltip}>
-          <input id={id} type="time" title={tooltip} {...register(id, { required })} className="border rounded p-2 w-full" />
+          <input id={id} type="time" title={tooltip} {...register(id, { required })} className="w-full" />
         </Tooltip>
       ) : (
-        <input id={id} type="time" title={tooltip} {...register(id, { required })} className="border rounded p-2 w-full" />
+        <input id={id} type="time" title={tooltip} {...register(id, { required })} className="w-full" />
       )}
 
       {errors[id] && (
-        <p className="text-red-600 text-sm">This field is required.</p>
+        <p className="form-error-alert">This field is required.</p>
       )}
     </div>
   )

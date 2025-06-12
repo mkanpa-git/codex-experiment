@@ -12,7 +12,7 @@ export default function GroupField({ field, renderField }: Props) {
   const { fields, append, remove } = useFieldArray({ control, name: field.id })
 
   return (
-    <div className="mb-6 border p-2">
+    <div className="form-group-wrapper">
       <h3 className="font-semibold mb-2">{field.label}</h3>
       {fields.map((item, index) => (
         <div key={item.id} className="mb-4">
@@ -20,10 +20,10 @@ export default function GroupField({ field, renderField }: Props) {
             const childId = `${field.id}.${index}.${child.id}`
             return renderField({ ...child, id: childId })
           })}
-          <button type="button" className="text-sm text-red-600" onClick={() => remove(index)}>Remove</button>
+          <button type="button" className="button-secondary text-sm" onClick={() => remove(index)}>Remove</button>
         </div>
       ))}
-      <button type="button" className="text-sm text-blue-600" onClick={() => append({})}>Add</button>
+      <button type="button" className="button-primary text-sm" onClick={() => append({})}>Add</button>
     </div>
   )
 }

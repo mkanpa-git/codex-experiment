@@ -10,7 +10,7 @@ export default function RadioGroup({ id, label, options, required }: Props) {
   return (
     <fieldset className="mb-4">
       <legend className="font-medium">
-        {label} {required && <span className="text-red-600">*</span>}
+        {label} {required && <span className="required-asterisk">*</span>}
       </legend>
       {options.map(opt => (
         <label key={opt} className="block">
@@ -19,7 +19,7 @@ export default function RadioGroup({ id, label, options, required }: Props) {
         </label>
       ))}
       {errors[id] && (
-        <p className="text-red-600 text-sm">This field is required.</p>
+        <p className="form-error-alert">This field is required.</p>
       )}
     </fieldset>
   )
