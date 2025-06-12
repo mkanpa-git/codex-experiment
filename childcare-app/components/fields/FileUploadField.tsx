@@ -1,4 +1,5 @@
 import { useFormContext } from 'react-hook-form'
+import { useState } from 'react'
 interface Props {
   id: string
   label: string
@@ -12,17 +13,35 @@ interface Props {
   }
 }
 export default function FileUploadField({ id, label, required, multiple, accept, maxFileSizeMB, imageResolution }: Props) {
+  const { register, setValue, formState: { errors } } = useFormContext()
+  const [dragging, setDragging] = useState(false)
 
-  const { register, formState: { errors } } = useFormContext()
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault()
+    setDragging(false)
+    const files = e.dataTransfer.files
+    setValue(id, files, { shouldValidate: true })
+  }
+
   return (
     <div className="mb-4">
       <label htmlFor={id} className="block font-medium">
         {label} {required && <span className="required-asterisk">*</span>}
       </label>
-      <input
-        id={id}
-        type="file"
-        {...register(id, {
+      <div
+        onDragOver={e => {
+          e.preventDefault()
+          setDragging(true)
+        }}
+        onDragLeave={() => setDragging(false)}
+        onDrop={handleDrop}
+        className={`border-dashed border-2 p-4 text-center ${dragging ? 'bg-gray-100' : ''}`}
+      >
+        <p>Drag & drop files here or</p>
+        <input
+          id={id}
+          type="file"
+          {...register(id, {
           required,
           validate: async (fileList) => {
             const file = (fileList as FileList)[0]
@@ -62,10 +81,11 @@ export default function FileUploadField({ id, label, required, multiple, accept,
           }
         })}
 
-        multiple={multiple}
-        accept={accept}
-        className="block"
-      />
+          multiple={multiple}
+          accept={accept}
+          className="block mx-auto mt-2"
+        />
+      </div>
       {errors[id] && (
         <p className="form-error-alert">{errors[id].message as string}</p>
       )}
