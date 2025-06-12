@@ -8,7 +8,7 @@ interface Props {
 }
 export default function DateField({ id, label, required, tooltip }: Props) {
 
-  const { register, formState: { errors } } = useFormContext()
+  const { register, formState: { errors }, clearErrors } = useFormContext()
   return (
     <div className="mb-4">
       <label htmlFor={id} className="block font-medium">
@@ -16,13 +16,13 @@ export default function DateField({ id, label, required, tooltip }: Props) {
       </label>
       {tooltip ? (
         <Tooltip content={tooltip}>
-          <input id={id} type="date" title={tooltip} {...register(id, { required })} className="w-full" />
+          <input id={id} type="date" title={tooltip} {...register(id, { required, onChange: () => clearErrors(id), onBlur: () => clearErrors(id) })} className="w-full" />
         </Tooltip>
       ) : (
-        <input id={id} type="date" title={tooltip} {...register(id, { required })} className="w-full" />
+        <input id={id} type="date" title={tooltip} {...register(id, { required, onChange: () => clearErrors(id), onBlur: () => clearErrors(id) })} className="w-full" />
       )}
       {errors[id] && (
-        <p className="form-error-alert">This field is required.</p>
+        <p className="form-error-alert">{errors[id].message as string}</p>
       )}
     </div>
   )

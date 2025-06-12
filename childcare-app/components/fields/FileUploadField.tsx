@@ -13,7 +13,7 @@ interface Props {
   }
 }
 export default function FileUploadField({ id, label, required, multiple, accept, maxFileSizeMB, imageResolution }: Props) {
-  const { register, setValue, formState: { errors } } = useFormContext()
+  const { register, setValue, formState: { errors }, clearErrors } = useFormContext()
   const [dragging, setDragging] = useState(false)
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
@@ -43,6 +43,8 @@ export default function FileUploadField({ id, label, required, multiple, accept,
           type="file"
           {...register(id, {
           required,
+          onChange: () => clearErrors(id),
+          onBlur: () => clearErrors(id),
           validate: async (fileList) => {
             const file = (fileList as FileList)[0]
             if (!file) return true

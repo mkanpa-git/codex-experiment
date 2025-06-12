@@ -6,7 +6,7 @@ interface Props {
   required?: boolean;
 }
 export default function RadioGroup({ id, label, options, required }: Props) {
-  const { register, formState: { errors } } = useFormContext()
+  const { register, formState: { errors }, clearErrors } = useFormContext()
   return (
     <fieldset className="mb-4">
       <legend className="font-medium">
@@ -14,12 +14,12 @@ export default function RadioGroup({ id, label, options, required }: Props) {
       </legend>
       {options.map(opt => (
         <label key={opt} className="block">
-          <input type="radio" value={opt} {...register(id, { required })} className="mr-2" />
+          <input type="radio" value={opt} {...register(id, { required, onChange: () => clearErrors(id), onBlur: () => clearErrors(id) })} className="mr-2" />
           {opt}
         </label>
       ))}
       {errors[id] && (
-        <p className="form-error-alert">This field is required.</p>
+        <p className="form-error-alert">{errors[id].message as string}</p>
       )}
     </fieldset>
   )
