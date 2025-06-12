@@ -99,7 +99,15 @@ export default function FormRenderer() {
           />
         )
       case 'info':
-        return <InfoBlock key={f.id} title={f.title || ''} content={f.content || ''} />
+        return (
+          <InfoBlock
+            key={f.id}
+            title={f.title || ''}
+            content={f.content || ''}
+            collapsible={f.ui?.collapsible}
+            defaultCollapsed={f.ui?.defaultCollapsed}
+          />
+        )
       case 'group':
         return <GroupField key={f.id} field={f} renderField={renderField} />
       default:
@@ -117,7 +125,12 @@ export default function FormRenderer() {
             {currentStep.sections?.map(sec => (
               <div key={sec.id}>
                 {sec.type === 'info' ? (
-                  <InfoBlock title={sec.title || ''} content={sec.content || ''} />
+                  <InfoBlock
+                    title={sec.title || ''}
+                    content={sec.content || ''}
+                    collapsible={sec.ui?.collapsible}
+                    defaultCollapsed={sec.ui?.defaultCollapsed}
+                  />
                 ) : (
                   sec.fields?.map(renderField)
                 )}

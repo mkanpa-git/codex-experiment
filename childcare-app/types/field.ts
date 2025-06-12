@@ -6,7 +6,7 @@ export interface FieldSpec {
   required?: boolean
   requiredCondition?: any
   visibilityCondition?: any
-  ui?: { options?: any }
+  ui?: { options?: any; collapsible?: boolean; defaultCollapsed?: boolean }
   placeholder?: string
   content?: string
   metadata?: { multiple?: boolean; proofCategory?: string }
