@@ -13,6 +13,7 @@ import Stepper from '../features/Stepper'
 import formSpec from '../childcare_form.json'
 import { evaluateCondition } from '../utils/conditions'
 import { buildConditionalSchema } from '../utils/schemaBuilder'
+import mapZodErrors from '../utils/mapZodErrors'
 import GroupField from './GroupField'
 import { FieldSpec } from '../types/field'
 
@@ -28,7 +29,7 @@ export default function FormRenderer() {
       const data = schema.parse(values)
       return { values: data, errors: {} }
     } catch (e: any) {
-      return { values: {}, errors: e.formErrors.fieldErrors }
+      return { values: {}, errors: mapZodErrors(e.formErrors.fieldErrors) }
     }
   } })
 
