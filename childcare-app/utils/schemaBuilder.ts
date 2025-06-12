@@ -1,6 +1,7 @@
 import { z, ZodTypeAny } from 'zod'
 import { Condition, evaluateCondition } from './conditions'
 import { FieldSpec } from '../types/field'
+import { sanitizePattern } from './regex'
 
 export function buildSchema(fields: FieldSpec[]): ZodTypeAny {
   const shape: Record<string, ZodTypeAny> = {}
@@ -37,8 +38,12 @@ export function buildSchema(fields: FieldSpec[]): ZodTypeAny {
         schema = schema.refine(v => v !== undefined && v !== '', { message: 'Required' })
       }
       if (field.constraints?.pattern) {
-        const regex = new RegExp(field.constraints.pattern)
-        schema = schema.regex(regex, 'Invalid format')
+        try {
+          const regex = new RegExp(sanitizePattern(field.constraints.pattern))
+          schema = schema.regex(regex, 'Invalid format')
+        } catch (e) {
+          console.warn('Invalid regex pattern:', field.constraints.pattern)
+        }
       }
     }
     shape[field.id] = schema

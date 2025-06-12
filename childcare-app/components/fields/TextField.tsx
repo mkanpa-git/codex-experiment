@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form'
 import Tooltip from './Tooltip'
+import { sanitizePattern } from '../utils/regex'
 interface Props {
   id: string
   label: string
@@ -11,7 +12,15 @@ interface Props {
 }
 export default function TextField({ id, label, type = 'text', required, placeholder, tooltip, pattern }: Props) {
   const { register, formState: { errors } } = useFormContext()
-  const validation = { required, pattern: pattern ? new RegExp(pattern) : undefined }
+  let regex: RegExp | undefined
+  if (pattern) {
+    try {
+      regex = new RegExp(sanitizePattern(pattern))
+    } catch (e) {
+      console.warn('Invalid regex pattern:', pattern)
+    }
+  }
+  const validation = { required, pattern: regex }
 
   return (
     <div className="mb-4">
