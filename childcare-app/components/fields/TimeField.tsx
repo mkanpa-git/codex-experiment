@@ -1,4 +1,5 @@
 import { useFormContext } from 'react-hook-form'
+import Tooltip from './Tooltip'
 interface Props {
   id: string
   label: string
@@ -13,7 +14,13 @@ export default function TimeField({ id, label, required, tooltip }: Props) {
       <label htmlFor={id} className="block font-medium">
         {label} {required && <span className="text-red-600">*</span>}
       </label>
-      <input id={id} type="time" title={tooltip} {...register(id, { required })} className="border rounded p-2 w-full" />
+      {tooltip ? (
+        <Tooltip content={tooltip}>
+          <input id={id} type="time" title={tooltip} {...register(id, { required })} className="border rounded p-2 w-full" />
+        </Tooltip>
+      ) : (
+        <input id={id} type="time" title={tooltip} {...register(id, { required })} className="border rounded p-2 w-full" />
+      )}
 
       {errors[id] && (
         <p className="text-red-600 text-sm">This field is required.</p>
