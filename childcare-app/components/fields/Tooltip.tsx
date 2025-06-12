@@ -21,7 +21,7 @@ export default function Tooltip({ content, children }: TooltipProps) {
       {open && (
         <span
           role="tooltip"
-          className="absolute left-1/2 -translate-x-1/2 mt-1 whitespace-nowrap bg-black text-white text-xs rounded py-1 px-2 z-10"
+          className="absolute left-1/2 -translate-x-1/2 mt-1 whitespace-nowrap bg-black text-white text-xs rounded py-1 px-2 z-10 pointer-events-none"
         >
           {content}
         </span>

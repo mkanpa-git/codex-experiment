@@ -51,20 +51,33 @@ export default function FormRenderer() {
 
   }
 
-  const goNext = () => {
-    saveDraft()
-    setStepIndex(i => Math.min(i + 1, steps.length - 1))
+  const validateAndSave = async () => {
+    const valid = await methods.trigger()
+    if (valid) {
+      saveDraft()
+    }
+    return valid
   }
 
-  const goPrev = () => {
-    saveDraft()
-    setStepIndex(i => Math.max(i - 1, 0))
+  const goNext = async () => {
+    if (await validateAndSave()) {
+      setStepIndex(i => Math.min(i + 1, steps.length - 1))
+    }
+  }
+
+  const goPrev = async () => {
+    if (await validateAndSave()) {
+      setStepIndex(i => Math.max(i - 1, 0))
+    }
   }
 
   const data = methods.watch()
 
   const renderField = (f: FieldSpec) => {
     if (f.visibilityCondition && !evaluateCondition(f.visibilityCondition, data)) {
+      return null
+    }
+    if (f.requiredCondition && !evaluateCondition(f.requiredCondition as any, data)) {
       return null
     }
     switch (f.type) {
@@ -155,9 +168,10 @@ export default function FormRenderer() {
       <Stepper
         steps={steps.map(s => ({ id: s.id, title: s.title }))}
         current={stepIndex}
-        onStepClick={i => {
-          saveDraft()
-          setStepIndex(i)
+        onStepClick={async i => {
+          if (await validateAndSave()) {
+            setStepIndex(i)
+          }
         }}
         position={stepperPosition}
       />
